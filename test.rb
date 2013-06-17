@@ -1,3 +1,7 @@
+load 'song.rb'
+load 'artist.rb'
+load 'genre.rb'
+
 def test(title, &b)
   begin
     if b
@@ -117,16 +121,17 @@ test 'A genre has a name' do
 end
 
 test 'A genre has many songs' do
+  Song.reset_songs
   genre = Genre.new.tap{|g| g.name = 'rap'}
   [1,2].each do
     song = Song.new
     song.genre = genre
   end
-
   assert_equal genre.songs.count, 2
 end
 
 test 'A genre has many artists' do
+  Artist.reset_artists
   genre = Genre.new.tap{|g| g.name = 'rap'}
 
   [1,2].each do
@@ -140,6 +145,7 @@ test 'A genre has many artists' do
 end
 
 test 'A genres Artists are unique' do
+  Artist.reset_artists
   genre = Genre.new.tap{|g| g.name = 'rap'}
   artist = Artist.new
 
@@ -162,6 +168,8 @@ test 'The Genre class can keep track of all created genres' do
   assert_equal Genre.all, genres
 end
 
+
+
 # Extra Credit
 # Complete any song test that is pending (undefined).
 # The functionality described must still be present to complete the assignment
@@ -170,10 +178,27 @@ end
 # without your song class having this functionality, so go ahead and try
 # to use assert and assert_equal to write some tests.
 
-test 'Can initialize a song'
-test 'A song can have a name'
-test 'A song can have a genre'
-test 'A song has an artist'
+test 'Can initialize a song' do
+  assert Song.new
+end
+
+test 'A song can have a name' do
+  song = Song.new
+  song.name = "pooncakes" 
+  assert_equal song.name, "pooncakes"
+end
+
+test 'A song can have a genre' do 
+  song = Song.new
+  song.genre = "bluegrass"
+  assert_equal song.genre, "bluegrass"
+end
+
+test 'A song has an artist' do
+  song = Song.new
+  song.artist = "hank williams"
+  assert_equal song.artist, "hank williams"
+end
 
 # Part 2: Site Generation Using ERB
 # write a ruby script that parses the data within the data directory
