@@ -13,7 +13,7 @@ class Genre
       song.genre.name == name unless song.genre.nil?
     }
   end
-⁄
+
   def artists
     Artist.all.select{ |artist|
       artist.genres.any? {|genre| genre.name == name unless genre.nil?}
